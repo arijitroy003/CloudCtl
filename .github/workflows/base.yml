@@ -5,11 +5,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
     - name: Login public.ecr.aws
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         logout: false
         registry: public.ecr.aws
@@ -19,7 +19,7 @@ jobs:
         AWS_REGION: us-east-1
 
     - name: Login ghcr.io
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         logout: false
         registry: ghcr.io
@@ -27,7 +27,7 @@ jobs:
         password: ${{ secrets.ROBOT_TOKEN_GHCR }}
 
     - name: Login Docker.io
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         logout: false
         registry: docker.io
@@ -35,7 +35,7 @@ jobs:
         password: ${{ secrets.ROBOT_TOKEN_DOCKERHUB }}
 
     - name: Login Quay.io
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         logout: false
         registry: quay.io
@@ -50,10 +50,10 @@ jobs:
         echo;  
 
     - name: Git Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Build Micro
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v6
       with:
         context: ./containers/${{ github.workflow }}
         file: ./containers/${{ github.workflow }}/Dockerfile.micro
@@ -74,7 +74,7 @@ jobs:
 
     - name: Build CloudCtl Registry Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: registry
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -82,7 +82,7 @@ jobs:
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
     - name: Build Minimal
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v6
       with:
         context: ./containers/${{ github.workflow }}
         file: ./containers/${{ github.workflow }}/Dockerfile.minimal
@@ -102,7 +102,7 @@ jobs:
 
     - name: Build CloudCtl CoreDNS Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: coredns
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -111,7 +111,7 @@ jobs:
 
     - name: Build CloudCtl NGINX Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: nginx
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -120,7 +120,7 @@ jobs:
 
     - name: Build CloudCtl Haproxy Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: haproxy
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -129,7 +129,7 @@ jobs:
 
     - name: Build CloudCtl TFTPd Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: tftpd
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -137,7 +137,7 @@ jobs:
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
     - name: Build Builder
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v6
       with:
         context: ./containers/${{ github.workflow }}
         file: ./containers/${{ github.workflow }}/Dockerfile.builder
@@ -157,7 +157,7 @@ jobs:
 
     - name: Build CloudCtl Git Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: git
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
@@ -166,7 +166,7 @@ jobs:
 
     - name: Build CloudCtl Ansible Container
       if: success()
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         event-type: ansible
         token: ${{ secrets.GH_ACTIONS_TOKEN }}
