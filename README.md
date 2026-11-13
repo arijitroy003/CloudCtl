@@ -3,13 +3,13 @@ DevOps Services & Utilities Container [Pod] Infrastructure as Code [(IaC)] toolk
 ## Problem
 Infrastructure deployment requires a wide set of user enablement & automation 
 utilities, network services, and Infrastructure as Code resources. These can 
-become difficult & inconsistent to architect, maintain, and support.
+become difficult & inconsistent to architecht, maintain, and support.
 ## Solution
 CloudCtl provides a [Podman] "Point of Origin" [Pod] to augment infrastructure
 services with [UBI8] containerized, and [(IaC)] driven deployment dependencies.
 
 #### Core Features
-  - Extensible
+  - Extensable
   - Portable 
   - Stateful
   - Dynamic
@@ -101,7 +101,7 @@ rm -rf /root/{cloudctl,platform} /tmp/konductor
 [Pod]:https://kubernetes.io/docs/concepts/workloads/pods/pod
 [UBI8]:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
 [(IaC)]:https://www.ibm.com/cloud/learn/infrastructure-as-code
-[Konductor]:https://github.com/ContainerCraft/Konductor
+[Konductor]:https://github.com/redshiftofficial/Konductor
 [Podman]:https://docs.podman.io/en/latest
 [Install Podman]:https://podman.io/getting-started/installation
 [Fedora]:https://getfedora.org
